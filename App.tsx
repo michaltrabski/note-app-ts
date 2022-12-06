@@ -45,11 +45,9 @@ export default function App() {
   return (
     <div>
       <h1>note app</h1>
-
       {days.map((day) => {
         return <MyCard day={day} />;
       })}
-
       <Button
         variant="contained"
         size="large"
@@ -58,7 +56,7 @@ export default function App() {
       >
         Load more days...
       </Button>
-
+      działa
       {/* {JSON.stringify(days.slice(0, 1))} */}
     </div>
   );
