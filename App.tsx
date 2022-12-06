@@ -2,7 +2,8 @@ import { Box, Button } from '@mui/material';
 import moment = require('moment');
 import * as React from 'react';
 import MyCard from './components/card';
-import { getNotes } from './notes';
+import { getNotes } from './data/notes';
+
 import './style.css';
 
 export const DATE_FORMAT = 'DD/MM/YYYY';
