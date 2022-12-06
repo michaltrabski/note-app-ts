@@ -6,7 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { DATE_FORMAT, Day } from '../App';
-import { ButtonGroup, Grid } from '@mui/material';
+import { ButtonGroup, Grid, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
 
 interface MyCardProps {
   day: Day;
@@ -46,6 +48,13 @@ export default function MyCard(props: MyCardProps) {
                 <Button>yes</Button>
                 <Button>no</Button>
               </ButtonGroup>
+
+              <IconButton color="secondary" aria-label="add an alarm">
+                <AlarmIcon />
+              </IconButton>
+              <IconButton color="primary" aria-label="add to shopping cart">
+                <DeleteIcon />
+              </IconButton>
             </Grid>
           </Grid>
         ))}
