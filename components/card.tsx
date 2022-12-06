@@ -5,25 +5,30 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Day } from '../App';
+import { DATE_FORMAT, Day } from '../App';
 
 interface MyCardProps {
   day: Day;
 }
 
 export default function MyCard(props: MyCardProps) {
-  const { day } = props;
-  const str = JSON.stringify(day);
+  const { dataName, date, notes, notesCount } = props.day;
+
+  const str = JSON.stringify(props.day);
 
   return (
     <Card sx={{ minWidth: 275, marginBottom: 2 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {day.dataName}
+          {dataName} ({date.format(DATE_FORMAT)})
         </Typography>
-        {/* <Typography variant="h5" component="div">
-          asd
-        </Typography> */}
+
+        {notes.map((note) => (
+          <Typography variant="h5" component="div">
+            {note.title}
+          </Typography>
+        ))}
+
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {str}
         </Typography> */}

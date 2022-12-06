@@ -1,13 +1,18 @@
+import { Box } from '@mui/material';
 import moment = require('moment');
 import * as React from 'react';
 import MyCard from './components/card';
+import { getNotes } from './notes';
 import './style.css';
+
+export const DATE_FORMAT = 'DD/MM/YYYY';
 
 interface Note {
   date: string;
   time: string;
   title: string;
   description: string;
+  done: boolean;
 }
 
 export interface Day {
@@ -19,19 +24,12 @@ export interface Day {
 }
 
 export default function App() {
-  const notesData: Note[] = [
-    {
-      date: '08/12/2022',
-      time: '',
-      title: 'Some example task.',
-      description: 'Lorem ipsum dolor...',
-    },
-  ];
+  const notesData: Note[] = getNotes();
 
   const days: Day[] = Array.from({ length: 10 }, (_, nr) => {
     const date = moment().add(nr, 'day');
     const notes = notesData.filter(
-      (note) => note.date === date.format('DD/MM/YYYY')
+      (note) => note.date === date.format(DATE_FORMAT)
     );
 
     return {
