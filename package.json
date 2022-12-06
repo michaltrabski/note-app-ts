@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.0.0",
-    "@emotion/react": "^11.5.0",
+    "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.2",
