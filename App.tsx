@@ -57,7 +57,7 @@ export default function App() {
       >
         Load more days...
       </Button>
-      działa
+      działa2
       {/* {JSON.stringify(days.slice(0, 1))} */}
     </div>
   );
