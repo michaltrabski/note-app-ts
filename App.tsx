@@ -1,22 +1,39 @@
 import moment = require('moment');
 import * as React from 'react';
+import MyCard from './components/card';
 import './style.css';
 
+interface Note {
+  date: string;
+  time: string;
+  title: string;
+  description: string;
+}
+
+export interface Day {
+  nr: number;
+  date: moment.Moment;
+  dataName: string;
+  notesCount: number;
+  notes: Note[];
+}
+
 export default function App() {
-  const notesData = [
+  const notesData: Note[] = [
     {
       date: '08/12/2022',
-      time: null,
+      time: '',
       title: 'Some example task.',
       description: 'Lorem ipsum dolor...',
     },
   ];
 
-  const days = Array.from({ length: 10 }, (_, nr) => {
+  const days: Day[] = Array.from({ length: 10 }, (_, nr) => {
     const date = moment().add(nr, 'day');
     const notes = notesData.filter(
       (note) => note.date === date.format('DD/MM/YYYY')
     );
+
     return {
       nr,
       date: date,
@@ -30,7 +47,11 @@ export default function App() {
     <div>
       <h1>note app</h1>
 
-      <div>
+      {days.map((day) => {
+        return <MyCard day={day} />;
+      })}
+
+      {/* <div>
         {days.map((day) => (
           <div style={{ border: '1px solid grey', marginBottom: '1rem' }}>
             <p>
@@ -43,9 +64,9 @@ export default function App() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
-      {JSON.stringify(days)}
+      {JSON.stringify(days.slice(0, 1))}
     </div>
   );
 }
