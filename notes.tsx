@@ -27,4 +27,11 @@ export const getNotes = () => [
     description: 'Lorem ipsum dolor...',
     done: false,
   },
+  {
+    date: '01/01/2023',
+    time: '',
+    title: 'Some example task.',
+    description: 'Lorem ipsum dolor...',
+    done: false,
+  },
 ];

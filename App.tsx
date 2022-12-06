@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import moment = require('moment');
 import * as React from 'react';
 import MyCard from './components/card';
@@ -24,9 +24,10 @@ export interface Day {
 }
 
 export default function App() {
-  const notesData: Note[] = getNotes();
+  const [daysLimit, setDaysLimit] = React.useState(10);
+  const [notesData, setNotesData] = React.useState(() => getNotes());
 
-  const days: Day[] = Array.from({ length: 10 }, (_, nr) => {
+  const days: Day[] = Array.from({ length: daysLimit }, (_, nr) => {
     const date = moment().add(nr, 'day');
     const notes = notesData.filter(
       (note) => note.date === date.format(DATE_FORMAT)
@@ -49,22 +50,16 @@ export default function App() {
         return <MyCard day={day} />;
       })}
 
-      {/* <div>
-        {days.map((day) => (
-          <div style={{ border: '1px solid grey', marginBottom: '1rem' }}>
-            <p>
-              {day.date.format('dddd')} {day.dataName}
-            </p>
-            <div>
-              {day.notes.map((note) => (
-                <p>{note.title}</p>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div> */}
+      <Button
+        variant="contained"
+        size="large"
+        fullWidth
+        onClick={() => setDaysLimit((prevLimit) => prevLimit + 10)}
+      >
+        Load more days...
+      </Button>
 
-      {JSON.stringify(days.slice(0, 1))}
+      {/* {JSON.stringify(days.slice(0, 1))} */}
     </div>
   );
 }

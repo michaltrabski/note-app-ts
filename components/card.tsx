@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { DATE_FORMAT, Day } from '../App';
+import { ButtonGroup, Grid } from '@mui/material';
 
 interface MyCardProps {
   day: Day;
@@ -24,9 +25,29 @@ export default function MyCard(props: MyCardProps) {
         </Typography>
 
         {notes.map((note) => (
-          <Typography variant="h5" component="div">
-            {note.title}
-          </Typography>
+          <Grid
+            container
+            spacing={2}
+            rowSpacing={3}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography variant="h5" component="div">
+                {note.title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <ButtonGroup
+                disableElevation
+                variant="contained"
+                aria-label="Disabled elevation buttons"
+              >
+                <Button>yes</Button>
+                <Button>no</Button>
+              </ButtonGroup>
+            </Grid>
+          </Grid>
         ))}
 
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
