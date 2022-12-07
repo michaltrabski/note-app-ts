@@ -1,13 +1,19 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import moment = require('moment');
 import * as React from 'react';
 import MyCard from './components/card';
 import { getNotes } from './data/notes';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import HomeIcon from '@mui/icons-material/Home';
 
 import './style.css';
+import IconButton from '@mui/material/IconButton';
 
 export const DATE_FORMAT = 'DD/MM/YYYY';
-
+export const DEFAULT_VALUES = {
+  daysLimit: 10,
+  pastDaysLimit: 0,
+};
 interface Note {
   date: string;
   time: string;
@@ -25,8 +31,10 @@ export interface Day {
 }
 
 export default function App() {
-  const [daysLimit, setDaysLimit] = React.useState(10);
-  const [pastDaysLimit, setPastDaysLimit] = React.useState(0);
+  const [daysLimit, setDaysLimit] = React.useState(DEFAULT_VALUES.daysLimit);
+  const [pastDaysLimit, setPastDaysLimit] = React.useState(
+    DEFAULT_VALUES.pastDaysLimit
+  );
   const [notesData, setNotesData] = React.useState(() => getNotes());
 
   const days: Day[] = Array.from(
@@ -47,18 +55,32 @@ export default function App() {
     }
   );
 
+  const reset = (daysLimit: number) => {
+    setDaysLimit(daysLimit);
+    setPastDaysLimit(DEFAULT_VALUES.pastDaysLimit);
+  };
+
   return (
     <div>
       <h1>note app</h1>
-      <Button
-        sx={{ marginBottom: 2 }}
-        variant="contained"
-        size="small"
-        fullWidth
-        onClick={() => setPastDaysLimit((prevLimit) => prevLimit + 3)}
-      >
-        Load more past days...
-      </Button>
+
+      <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
+        <IconButton
+          color="primary"
+          aria-label="ArrowUpwardIcon"
+          onClick={() => setPastDaysLimit((prevLimit) => prevLimit + 3)}
+        >
+          <ArrowUpwardIcon />
+        </IconButton>
+        <IconButton
+          color="primary"
+          aria-label="ArrowUpwardIcon"
+          onClick={() => reset(DEFAULT_VALUES.daysLimit)}
+        >
+          <HomeIcon />
+        </IconButton>
+      </Grid>
+
       {days.map((day) => {
         return <MyCard day={day} />;
       })}
@@ -70,6 +92,24 @@ export default function App() {
       >
         Load more days...
       </Button>
+
+      <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
+        <IconButton
+          color="primary"
+          aria-label="ArrowUpwardIcon"
+          onClick={() => setPastDaysLimit((prevLimit) => prevLimit + 3)}
+        >
+          <ArrowUpwardIcon />
+        </IconButton>
+        <IconButton
+          color="primary"
+          aria-label="ArrowUpwardIcon"
+          onClick={() => reset(3)}
+        >
+          <HomeIcon />
+        </IconButton>
+      </Grid>
+
       {/* {JSON.stringify(days.slice(0, 1))} */}
     </div>
   );

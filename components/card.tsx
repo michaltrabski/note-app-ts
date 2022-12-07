@@ -32,7 +32,7 @@ export default function MyCard(props: MyCardProps) {
     >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {dataName} ({date.format(DATE_FORMAT)})
+          {dataName}, {date.format(DATE_FORMAT)}
         </Typography>
 
         {notes.map((note) => (
@@ -49,7 +49,7 @@ export default function MyCard(props: MyCardProps) {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton color="" aria-label="add an alarm">
+              <IconButton color="" aria-label="toogle done status">
                 <DoneIcon />
               </IconButton>
             </Grid>
