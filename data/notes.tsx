@@ -1,8 +1,13 @@
 export const getNotes = () => [
   {
     date: '05/12/2022',
-    time: '',
-    title: 'Some example task 1.',
+    time: '11.00',
+    dayNumber: 5,
+    monthNumber: 12,
+    yearNumber: 2022,
+    hourNumber: 11,
+    minuteNumber: 0,
+    title: 'Dentysta',
     description: 'Lorem ipsum dolor...',
     done: false,
   },
