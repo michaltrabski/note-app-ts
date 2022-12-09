@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import './style.css';
 import IconButton from '@mui/material/IconButton';
+import FullScreenDialog from './components/modal';
 
 export const DATE_FORMAT = 'DD/MM/YYYY';
 export const DEFAULT_VALUES = {
@@ -63,6 +64,8 @@ export default function App() {
   return (
     <div>
       <h1>note app</h1>
+
+      <FullScreenDialog />
 
       <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
         <IconButton
