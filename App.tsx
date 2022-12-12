@@ -4,13 +4,14 @@ import * as React from 'react';
 import MyCard from './components/card';
 import { getNotes } from './data/notes';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import HomeIcon from '@mui/icons-material/Home';
 
 import './style.css';
 import IconButton from '@mui/material/IconButton';
 import FullScreenDialog from './components/modal';
 
-export const DATE_FORMAT = 'DD/MM/YYYY';
+export const DATE_FORMAT = 'DD.MM.YYYY';
 export const DEFAULT_VALUES = {
   daysLimit: 10,
   pastDaysLimit: 0,
@@ -37,6 +38,16 @@ export default function App() {
     DEFAULT_VALUES.pastDaysLimit
   );
   const [notesData, setNotesData] = React.useState(() => getNotes());
+
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
+
+  const handleDialogOpen = () => {
+    setIsOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsOpenDialog(false);
+  };
 
   const days: Day[] = Array.from(
     { length: daysLimit + pastDaysLimit },
@@ -65,8 +76,6 @@ export default function App() {
     <div>
       <h1>note app</h1>
 
-      <FullScreenDialog />
-
       <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
         <IconButton
           color="primary"
@@ -85,28 +94,21 @@ export default function App() {
       </Grid>
 
       {days.map((day) => {
-        return <MyCard day={day} />;
+        return <MyCard day={day} handleDialogOpen={handleDialogOpen} />;
       })}
-      <Button
-        variant="contained"
-        size="large"
-        fullWidth
-        onClick={() => setDaysLimit((prevLimit) => prevLimit + 10)}
-      >
-        Load more days...
-      </Button>
 
       <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
         <IconButton
           color="primary"
-          aria-label="ArrowUpwardIcon"
-          onClick={() => setPastDaysLimit((prevLimit) => prevLimit + 3)}
+          aria-label="ArrowDownwardIcon"
+          onClick={() => setDaysLimit((prevLimit) => prevLimit + 30)}
         >
-          <ArrowUpwardIcon />
+          <ArrowDownwardIcon />
         </IconButton>
+
         <IconButton
           color="primary"
-          aria-label="ArrowUpwardIcon"
+          aria-label="HomeIcon"
           onClick={() => reset(3)}
         >
           <HomeIcon />
@@ -114,6 +116,12 @@ export default function App() {
       </Grid>
 
       {/* {JSON.stringify(days.slice(0, 1))} */}
+
+      <FullScreenDialog
+        day={days[0]}
+        isOpen={isOpenDialog}
+        handleClose={handleDialogClose}
+      />
     </div>
   );
 }

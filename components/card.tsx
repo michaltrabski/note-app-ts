@@ -13,10 +13,12 @@ import { blue } from '@mui/material/colors';
 
 interface MyCardProps {
   day: Day;
+  handleDialogOpen: () => void;
 }
 
 export default function MyCard(props: MyCardProps) {
-  const { dataName, date, notes, notesCount } = props.day;
+  const { day, handleDialogOpen } = props;
+  const { dataName, date, notes, notesCount } = day;
 
   const str = JSON.stringify(props.day);
 
@@ -32,7 +34,8 @@ export default function MyCard(props: MyCardProps) {
     >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {dataName}, {date.format(DATE_FORMAT)}
+          {/* {dataName}, */}
+          {date.format(DATE_FORMAT)} <u onClick={handleDialogOpen}>OPEN</u>
         </Typography>
 
         {notes.map((note) => (
