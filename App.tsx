@@ -28,8 +28,8 @@ export interface Note {
   dayStr: string;
   monthStr: string;
   yearStr: string;
-  hourNumber: string;
-  minuteNumber: string;
+  hourStr: string;
+  minuteStr: string;
   title: string;
   description: string;
   done: boolean;
@@ -52,14 +52,17 @@ export default function App() {
   );
   const [notesData, setNotesData] = React.useState(() => getNotes());
 
+  const [selectedDay, setSelectedDay] = React.useState<Day | null>(null);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
-  const handleDialogOpen = () => {
+  const handleDialogOpen = (selectedDay: Day) => {
     setIsOpenDialog(true);
+    setSelectedDay(selectedDay);
   };
 
   const handleDialogClose = () => {
     setIsOpenDialog(false);
+    setSelectedDay(null);
   };
 
   const days: Day[] = Array.from(
@@ -123,7 +126,9 @@ export default function App() {
       </Grid>
 
       {days.map((day) => {
-        return <MyCard day={day} handleDialogOpen={handleDialogOpen} />;
+        return (
+          <MyCard day={day} handleDialogOpen={() => handleDialogOpen(day)} />
+        );
       })}
 
       <Grid container justifyContent="end" sx={{ marginBottom: 2 }}>
@@ -147,7 +152,7 @@ export default function App() {
       {/* {JSON.stringify(days.slice(0, 1))} */}
 
       <FullScreenDialog
-        day={days[0]}
+        day={selectedDay}
         isOpen={isOpenDialog}
         handleClose={handleDialogClose}
       />

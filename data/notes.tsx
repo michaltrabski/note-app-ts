@@ -2,7 +2,7 @@ import { Note } from '../App';
 
 export const getNotes = (): Note[] => [
   {
-    dayStr: '14',
+    dayStr: '13',
     monthStr: '12',
     yearStr: '2022',
     hourStr: '11',
@@ -14,7 +14,7 @@ export const getNotes = (): Note[] => [
     repeatEveryYear: false,
   },
   {
-    dayStr: '24',
+    dayStr: '13',
     monthStr: '12',
     yearStr: '2022',
     hourStr: '11',
