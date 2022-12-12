@@ -12,16 +12,29 @@ import IconButton from '@mui/material/IconButton';
 import FullScreenDialog from './components/modal';
 
 export const DATE_FORMAT = 'DD.MM.YYYY';
+
 export const DEFAULT_VALUES = {
   daysLimit: 10,
   pastDaysLimit: 0,
 };
-interface Note {
-  date: string;
-  time: string;
+
+export interface Note {
+  // date: string;
+  // time: string;
+  // title: string;
+  // description: string;
+  // done: boolean;
+
+  dayStr: string;
+  monthStr: string;
+  yearStr: string;
+  hourNumber: string;
+  minuteNumber: string;
   title: string;
   description: string;
   done: boolean;
+  repeatEveryYear: boolean;
+  repeatEveryMonth: boolean;
 }
 
 export interface Day {
@@ -53,9 +66,25 @@ export default function App() {
     { length: daysLimit + pastDaysLimit },
     (_, nr) => {
       const date = moment().add(nr - pastDaysLimit, 'day');
-      const notes = notesData.filter(
-        (note) => note.date === date.format(DATE_FORMAT)
-      );
+      const notes = notesData.filter((note) => {
+        if (note.dayStr === date.format('DD') && note.repeatEveryMonth) {
+          return true;
+        }
+
+        if (
+          note.dayStr === date.format('DD') &&
+          note.monthStr === date.format('MM') &&
+          note.repeatEveryYear
+        ) {
+          return true;
+        }
+
+        return (
+          note.dayStr === date.format('DD') &&
+          note.monthStr === date.format('MM') &&
+          note.yearStr === date.format('YYYY')
+        );
+      });
 
       return {
         nr,
