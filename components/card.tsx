@@ -9,7 +9,7 @@ import { DATE_FORMAT, Day } from '../App';
 import { Grid, IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import moment = require('moment');
-import { blue } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 
 interface MyCardProps {
   day: Day;
@@ -28,14 +28,15 @@ export default function MyCard(props: MyCardProps) {
     <Card
       sx={{
         minWidth: 275,
-        marginBottom: 2,
-        outline: `${isToday ? 2 : 0}px solid ${blue[500]}`,
+        marginBottom: 2 + (date.format('e') === '0' ? 4 : 0),
+        outline: isToday ? `2px solid ${blue[500]}` : `1px solid ${grey[500]}`,
+        opacity: isToday || notesCount ? 1 : 1,
       }}
     >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {/* {dataName}, */}
-          {date.format(DATE_FORMAT)} <u onClick={handleDialogOpen}>OPEN</u>
+          {date.format('dddd')},{date.format(DATE_FORMAT)}{' '}
+          <u onClick={handleDialogOpen}>OPEN</u>
         </Typography>
 
         {notes.map((note) => (
