@@ -51,34 +51,27 @@ export default function MyCard(props: MyCardProps) {
         </Typography>
 
         {notes.map((note) => (
-          <Grid
-            sx={{ opacity: note.isDone ? 0.2 : 1, backgroundColor: 'red' }}
-            container
-            spacing={2}
-            rowSpacing={3}
-            justifyContent="space-between"
-            alignItems="center"
+          <Box
+            sx={{
+              opacity: note.isDone ? 0.2 : 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
           >
-            <Grid item>
-              <Typography
-                sx={{ textDecoration: note.isDone ? 'line-through' : 'none' }}
-                variant="h5"
-                component="div"
-              >
-                {note.title} <br />
-                {JSON.stringify(note.isDone)}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <IconButton
-                onClick={() => toogleIsDone(note.id)}
-                color=""
-                aria-label="toogle done status"
-              >
-                <DoneIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
+            <Typography
+              sx={{ textDecoration: note.isDone ? 'line-through' : 'none' }}
+              variant="h5"
+              component="div"
+            >
+              {note.title}
+            </Typography>
+            <IconButton
+              onClick={() => toogleIsDone(note.id)}
+              aria-label="toogle note isDone status"
+            >
+              <DoneIcon />
+            </IconButton>
+          </Box>
         ))}
       </CardContent>
     </Card>
