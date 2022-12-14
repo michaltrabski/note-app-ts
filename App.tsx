@@ -19,12 +19,7 @@ export const DEFAULT_VALUES = {
 };
 
 export interface Note {
-  // date: string;
-  // time: string;
-  // title: string;
-  // description: string;
-  // done: boolean;
-
+  id: string;
   dayStr: string;
   monthStr: string;
   yearStr: string;
@@ -32,7 +27,7 @@ export interface Note {
   minuteStr: string;
   title: string;
   description: string;
-  done: boolean;
+  isDone: boolean;
   repeatEveryYear: boolean;
   repeatEveryMonth: boolean;
 }
@@ -54,6 +49,12 @@ export default function App() {
 
   const [selectedDay, setSelectedDay] = React.useState<Day | null>(null);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
+
+  const updateNotesData = (newNote: Note) => {
+    setNotesData((prevNotesData) =>
+      prevNotesData.map((note) => (note.id === newNote.id ? newNote : note))
+    );
+  };
 
   const handleDialogOpen = (selectedDay: Day) => {
     setIsOpenDialog(true);
@@ -127,7 +128,11 @@ export default function App() {
 
       {days.map((day) => {
         return (
-          <MyCard day={day} handleDialogOpen={() => handleDialogOpen(day)} />
+          <MyCard
+            day={day}
+            handleDialogOpen={() => handleDialogOpen(day)}
+            updateNotesData={updateNotesData}
+          />
         );
       })}
 

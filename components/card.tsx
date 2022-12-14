@@ -5,7 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { DATE_FORMAT, Day } from '../App';
+import { DATE_FORMAT, Day, Note } from '../App';
 import { Grid, IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import moment = require('moment');
@@ -14,16 +14,25 @@ import { blue, grey } from '@mui/material/colors';
 interface MyCardProps {
   day: Day;
   handleDialogOpen: () => void;
+  updateNotesData: (newNote: Note) => void;
 }
 
 export default function MyCard(props: MyCardProps) {
-  const { day, handleDialogOpen } = props;
+  const { day, handleDialogOpen, updateNotesData } = props;
   const { dataName, date, notes, notesCount } = day;
 
   const str = JSON.stringify(props.day);
 
   const isToday = moment().format(DATE_FORMAT) === date.format(DATE_FORMAT);
 
+  const toogleIsDone = (noteId: string) => {
+    const newNote = notes.find((note) => note.id === noteId);
+
+    if (newNote) {
+      newNote.isDone = !newNote.isDone;
+      updateNotesData(newNote);
+    }
+  };
   return (
     <Card
       sx={{
@@ -36,11 +45,14 @@ export default function MyCard(props: MyCardProps) {
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {date.format('dddd')},{date.format(DATE_FORMAT)}{' '}
-          <u onClick={handleDialogOpen}>OPEN</u>
+          <u style={{ cursor: 'pointer ' }} onClick={handleDialogOpen}>
+            OPEN
+          </u>
         </Typography>
 
         {notes.map((note) => (
           <Grid
+            sx={{ opacity: note.isDone ? 0.2 : 1, backgroundColor: 'red' }}
             container
             spacing={2}
             rowSpacing={3}
@@ -48,12 +60,21 @@ export default function MyCard(props: MyCardProps) {
             alignItems="center"
           >
             <Grid item>
-              <Typography variant="h5" component="div">
-                {note.title}
+              <Typography
+                sx={{ textDecoration: note.isDone ? 'line-through' : 'none' }}
+                variant="h5"
+                component="div"
+              >
+                {note.title} <br />
+                {JSON.stringify(note.isDone)}
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton color="" aria-label="toogle done status">
+              <IconButton
+                onClick={() => toogleIsDone(note.id)}
+                color=""
+                aria-label="toogle done status"
+              >
                 <DoneIcon />
               </IconButton>
             </Grid>
