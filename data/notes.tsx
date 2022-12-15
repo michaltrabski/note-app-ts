@@ -40,4 +40,18 @@ export const getNotes = (): Note[] => [
     repeatEveryMonth: false,
     repeatEveryYear: false,
   },
+  {
+    id: 'noteid4',
+    dayStr: '10',
+    monthStr: '01',
+    yearStr: '2023',
+    hourStr: '11',
+    minuteStr: '0',
+    title: 'Kupić powerbank',
+    description:
+      'https://allegro.pl/oferta/power-bank-15000mah-3xusb-usb-c-micro-latarka-led-12870907038',
+    isDone: false,
+    repeatEveryMonth: false,
+    repeatEveryYear: false,
+  },
 ];

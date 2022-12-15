@@ -10,6 +10,7 @@ import { Grid, IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import moment = require('moment');
 import { blue, grey } from '@mui/material/colors';
+import AddIcon from '@mui/icons-material/Add';
 
 interface MyCardProps {
   day: Day;
@@ -43,9 +44,19 @@ export default function MyCard(props: MyCardProps) {
       }}
     >
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {date.format('dddd')},{date.format(DATE_FORMAT)}{' '}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {date.format('dddd')},{date.format(DATE_FORMAT)}{' '}
+          </Typography>
+          <IconButton onClick={() => {}} aria-label="Add new note">
+            <AddIcon />
+          </IconButton>
+        </Box>
 
         {notes.map((note) => (
           <Box
