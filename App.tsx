@@ -48,6 +48,7 @@ export default function App() {
   const [notesData, setNotesData] = React.useState(() => getNotes());
 
   const [selectedDay, setSelectedDay] = React.useState<Day | null>(null);
+  const [selectedNote, setSelectedNote] = React.useState<Note | null>(null);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const updateNotesData = (newNote: Note) => {
@@ -56,14 +57,17 @@ export default function App() {
     );
   };
 
-  const handleDialogOpen = (selectedDay: Day) => {
+  const handleDialogOpen = (selectedDay: Day, selectedNote: Note) => {
+    console.log(11111111, selectedDay, selectedNote);
     setIsOpenDialog(true);
     setSelectedDay(selectedDay);
+    setSelectedNote(selectedNote);
   };
 
   const handleDialogClose = () => {
     setIsOpenDialog(false);
     setSelectedDay(null);
+    setSelectedNote(null);
   };
 
   const days: Day[] = Array.from(
@@ -130,7 +134,7 @@ export default function App() {
         return (
           <MyCard
             day={day}
-            handleDialogOpen={() => handleDialogOpen(day)}
+            handleDialogOpen={handleDialogOpen}
             updateNotesData={updateNotesData}
           />
         );
@@ -157,7 +161,8 @@ export default function App() {
       {/* {JSON.stringify(days.slice(0, 1))} */}
 
       <FullScreenDialog
-        day={selectedDay}
+        selectedDay={selectedDay}
+        selectedNote={selectedNote}
         isOpen={isOpenDialog}
         handleClose={handleDialogClose}
       />

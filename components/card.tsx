@@ -13,7 +13,7 @@ import { blue, grey } from '@mui/material/colors';
 
 interface MyCardProps {
   day: Day;
-  handleDialogOpen: () => void;
+  handleDialogOpen: (selectedDay: Day, selecterNote: Note) => void;
   updateNotesData: (newNote: Note) => void;
 }
 
@@ -45,9 +45,6 @@ export default function MyCard(props: MyCardProps) {
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {date.format('dddd')},{date.format(DATE_FORMAT)}{' '}
-          <u style={{ cursor: 'pointer ' }} onClick={handleDialogOpen}>
-            OPEN
-          </u>
         </Typography>
 
         {notes.map((note) => (
@@ -59,7 +56,11 @@ export default function MyCard(props: MyCardProps) {
             }}
           >
             <Typography
-              sx={{ textDecoration: note.isDone ? 'line-through' : 'none' }}
+              onClick={() => handleDialogOpen(day, note)}
+              sx={{
+                cursor: 'pointer',
+                textDecoration: note.isDone ? 'line-through' : 'none',
+              }}
               variant="h5"
               component="div"
             >

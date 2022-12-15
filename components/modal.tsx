@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { DATE_FORMAT, Day } from '../App';
+import { DATE_FORMAT, Day, Note } from '../App';
 import Grid from '@mui/material/Grid';
 import DoneIcon from '@mui/icons-material/Done';
 
@@ -26,13 +26,14 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
-  day: Day | null;
+  selectedDay: Day | null;
+  selectedNote: Note | null;
   isOpen: boolean;
   handleClose: () => void;
 }
 
 export default function FullScreenDialog(props: Props) {
-  const { day, isOpen, handleClose } = props;
+  const { selectedDay, selectedNote, isOpen, handleClose } = props;
 
   return (
     <div>
@@ -53,29 +54,29 @@ export default function FullScreenDialog(props: Props) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              {day?.date.format(DATE_FORMAT)}
+              {selectedDay?.date.format(DATE_FORMAT)}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               Close
             </Button>
           </Toolbar>
         </AppBar>
+        {/* <pre>{JSON.stringify(selectedDay, null, 2)}</pre>
+        --------------------
+        <pre>{JSON.stringify(selectedNote, null, 2)}</pre> */}
+
         <List>
-          {day?.notes.map((note) => (
-            <React.Fragment>
-              <ListItem>
-                <ListItemText
-                  primary={note.title}
-                  secondary={note.description}
-                />
-              </ListItem>
-              <div> tu będą ustawienia dat itd.</div>
-              <Divider />
-            </React.Fragment>
-          ))}
+          <ListItem>
+            <ListItemText
+              primary={selectedNote?.title}
+              secondary={selectedNote?.description}
+            />
+          </ListItem>
+          <div> tu będą ustawienia dat itd.</div>
+          <Divider />
         </List>
 
-        <List sx={{ display: 'none' }}>
+        {/* <List sx={{ display: 'none' }}>
           <Typography variant="h1" gutterBottom>
             h1. Heading
           </Typography>
@@ -123,7 +124,7 @@ export default function FullScreenDialog(props: Props) {
           <Typography variant="overline" display="block" gutterBottom>
             overline text
           </Typography>
-        </List>
+        </List> */}
       </Dialog>
     </div>
   );
