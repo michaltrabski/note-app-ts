@@ -15,6 +15,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { DATE_FORMAT, Day, Note } from '../App';
 import Grid from '@mui/material/Grid';
 import DoneIcon from '@mui/icons-material/Done';
+import DialogContent from '@mui/material/DialogContent/DialogContent';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -64,7 +65,6 @@ export default function FullScreenDialog(props: Props) {
         {/* <pre>{JSON.stringify(selectedDay, null, 2)}</pre>
         --------------------
         <pre>{JSON.stringify(selectedNote, null, 2)}</pre> */}
-
         <List>
           <ListItem>
             <ListItemText
@@ -72,10 +72,39 @@ export default function FullScreenDialog(props: Props) {
               secondary={selectedNote?.description}
             />
           </ListItem>
-          <div> tu będą ustawienia dat itd.</div>
+
           <Divider />
         </List>
 
+        <DialogContent>
+          Ustaw czas wykonania zadania:
+          <Grid container spacing={2}>
+            <Grid item>
+              Godzina
+              {[...Array(24).keys()].map((h) => (
+                <Button
+                  sx={{ display: 'block', marginBottom: 1 }}
+                  variant="outlined"
+                  size="small"
+                >
+                  {h}
+                </Button>
+              ))}
+            </Grid>
+            <Grid item>
+              Minuta
+              {[...Array(12).keys()].map((m) => (
+                <Button
+                  sx={{ display: 'block', marginBottom: 1 }}
+                  variant="outlined"
+                  size="small"
+                >
+                  {m * 5}
+                </Button>
+              ))}
+            </Grid>
+          </Grid>
+        </DialogContent>
         {/* <List sx={{ display: 'none' }}>
           <Typography variant="h1" gutterBottom>
             h1. Heading
