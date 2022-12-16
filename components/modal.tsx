@@ -36,6 +36,13 @@ interface Props {
 export default function FullScreenDialog(props: Props) {
   const { selectedDay, selectedNote, isOpen, handleClose } = props;
 
+  if (!selectedDay || !selectedNote) {
+    return null;
+  }
+
+  const { date } = selectedDay;
+  const { title, description, hourStr, minuteStr } = selectedNote;
+
   return (
     <div>
       <Dialog
@@ -55,7 +62,7 @@ export default function FullScreenDialog(props: Props) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              {selectedDay?.date.format(DATE_FORMAT)}
+              {date.format(DATE_FORMAT)}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               Close
@@ -68,8 +75,8 @@ export default function FullScreenDialog(props: Props) {
         <List>
           <ListItem>
             <ListItemText
-              primary={selectedNote?.title}
-              secondary={selectedNote?.description}
+              primary={hourStr + '.' + minuteStr + ' ' + title}
+              secondary={description}
             />
           </ListItem>
 

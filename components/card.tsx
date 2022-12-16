@@ -38,7 +38,7 @@ export default function MyCard(props: MyCardProps) {
     <Card
       sx={{
         minWidth: 275,
-        marginBottom: 2 + (date.format('e') === '0' ? 4 : 0),
+        marginBottom: date.format('e') === '0' ? 6 : 2,
         outline: isToday ? `2px solid ${blue[500]}` : `1px solid ${grey[500]}`,
         opacity: isToday || notesCount ? 1 : 1,
       }}
@@ -75,7 +75,7 @@ export default function MyCard(props: MyCardProps) {
               variant="h5"
               component="div"
             >
-              {note.title}
+            {note.hourStr}.{note.minuteStr} {note.title}
             </Typography>
             <IconButton
               onClick={() => toogleIsDone(note.id)}
