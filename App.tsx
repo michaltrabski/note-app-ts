@@ -9,7 +9,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import './style.css';
 import IconButton from '@mui/material/IconButton';
-import FullScreenDialog from './components/modal';
+import MyModal from './components/modal';
 
 export const DATE_FORMAT = 'DD.MM.YYYY';
 
@@ -52,6 +52,8 @@ export default function App() {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const updateNotesData = (newNote: Note) => {
+    console.log(1111111, newNote);
+
     setNotesData((prevNotesData) =>
       prevNotesData.map((note) => (note.id === newNote.id ? newNote : note))
     );
@@ -160,11 +162,12 @@ export default function App() {
 
       {/* {JSON.stringify(days.slice(0, 1))} */}
 
-      <FullScreenDialog
+      <MyModal
         selectedDay={selectedDay}
         selectedNote={selectedNote}
         isOpen={isOpenDialog}
         handleClose={handleDialogClose}
+        updateNotesData={updateNotesData}
       />
     </div>
   );

@@ -31,10 +31,12 @@ interface Props {
   selectedNote: Note | null;
   isOpen: boolean;
   handleClose: () => void;
+  updateNotesData: (newNote: Note) => void;
 }
 
-export default function FullScreenDialog(props: Props) {
-  const { selectedDay, selectedNote, isOpen, handleClose } = props;
+export default function MyModal(props: Props) {
+  const { selectedDay, selectedNote, isOpen, handleClose, updateNotesData } =
+    props;
 
   if (!selectedDay || !selectedNote) {
     return null;
@@ -42,6 +44,15 @@ export default function FullScreenDialog(props: Props) {
 
   const { date } = selectedDay;
   const { title, description, hourStr, minuteStr } = selectedNote;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+
+    const newNote = { ...selectedNote, title: e.target.value };
+    // console.log(newNote, e.target.value);
+
+    updateNotesData(newNote);
+  };
 
   return (
     <div>
@@ -75,8 +86,19 @@ export default function FullScreenDialog(props: Props) {
         <List>
           <ListItem>
             <ListItemText
-              primary={hourStr + '.' + minuteStr + ' ' + title}
-              secondary={description}
+              primary={
+                <React.Fragment>
+                  <span>
+                    {hourStr}:{minuteStr}
+                  </span>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={handleInputChange}
+                  />
+                </React.Fragment>
+              }
+              secondary={title}
             />
           </ListItem>
 

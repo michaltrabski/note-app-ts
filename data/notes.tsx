@@ -3,9 +3,9 @@ import { Note } from '../App';
 export const getNotes = (): Note[] => [
   {
     id: 'noteid1',
-    dayStr: '17',
-    monthStr: '12',
-    yearStr: '2022',
+    dayStr: '05',
+    monthStr: '01',
+    yearStr: '2023',
     hourStr: '11',
     minuteStr: '15',
     title: 'Task 1',
@@ -16,17 +16,18 @@ export const getNotes = (): Note[] => [
   },
   {
     id: 'noteid2',
-    dayStr: '17',
-    monthStr: '12',
-    yearStr: '2022',
+    dayStr: '05',
+    monthStr: '01',
+    yearStr: '2023',
     hourStr: '11',
-    minuteStr: '00',
+    minuteStr: '15',
     title: 'Task 2',
     description: 'Lorem ipsum dolor2 ...',
     isDone: false,
     repeatEveryMonth: true,
     repeatEveryYear: false,
-  },{
+  },
+  {
     id: 'noteid1234',
     dayStr: '17',
     monthStr: '12',
